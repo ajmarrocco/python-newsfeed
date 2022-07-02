@@ -12,5 +12,5 @@ load_dotenv()
 engine = create_engine(getenv('DB_URL'), echo=True, pool_size=20, max_overflow=0)
 # Session creates temporary connections to perform CRUD methods
 Session = sessionmaker(bind=engine)
-# Base aps models to real MySQL tables
+# Base maps models to real MySQL tables
 Base = declarative_base()
