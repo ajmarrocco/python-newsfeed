@@ -2,7 +2,7 @@
 from flask import Flask
 # imports home module from app.routes
 # Can do this because the __init__.py file imported and renamed blueprint object
-from app.routes import home
+from app.routes import home, dashboard
 
 def create_app(test_config=None):
   # set up app config, don't need to declare using const or var
@@ -23,5 +23,6 @@ def create_app(test_config=None):
 
   # register routes
   app.register_blueprint(home)
+  app.register_blueprint(dashboard)
 
   return app
