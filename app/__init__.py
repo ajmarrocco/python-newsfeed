@@ -1,5 +1,8 @@
 # imports Flask() function from flask module
 from flask import Flask
+# imports home module from app.routes
+# Can do this because the __init__.py file imported and renamed blueprint object
+from app.routes import home
 
 def create_app(test_config=None):
   # set up app config, don't need to declare using const or var
@@ -17,5 +20,8 @@ def create_app(test_config=None):
   # adds inner function
   def hello():
     return 'hello world'
+
+  # register routes
+  app.register_blueprint(home)
 
   return app
