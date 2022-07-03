@@ -1,4 +1,4 @@
-from app.models import User, Post, Comment
+from app.models import User, Post, Comment, Vote
 from app.db import Session, Base, engine
 
 # drop tables
@@ -42,6 +42,7 @@ db.add_all([
     Comment(comment_text='In hac habitasse platea dictumst.', user_id=3, post_id=3)
 ])
 
+# runs the insert comments statements
 db.commit()
 
 # Closes connection if you don't need to make another db transaction
