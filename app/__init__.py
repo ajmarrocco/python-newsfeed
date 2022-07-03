@@ -5,6 +5,8 @@ from flask import Flask
 from app.routes import home, dashboard
 # imports init_db from app/db
 from app.db import init_db
+# imports filters from app/utils
+from app.utils import filters
 
 def create_app(test_config=None):
   # set up app config, don't need to declare using const or var
@@ -26,6 +28,9 @@ def create_app(test_config=None):
   # register routes
   app.register_blueprint(home)
   app.register_blueprint(dashboard)
+  app.jinja_env.filters['format_url'] = filters.format_url
+  app.jinja_env.filters['format_date'] = filters.format_date
+  app.jinja_env.filters['format_plural'] = filters.format_plural
 
   # initializes database
   init_db(app)
