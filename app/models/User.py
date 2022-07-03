@@ -1,6 +1,10 @@
 from app.db import Base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import validates
+import bcrypt
+
+# creates salt to hash passwords against
+salt = bcrypt.gensalt()
 
 # inherits from Base class created in app/db
 class User(Base):
@@ -23,4 +27,5 @@ class User(Base):
         # checks length of password
         assert len(password) > 4
 
-        return password
+        # encrypt password 
+        return bcrypt.hashpw(password.encode('utf-8'), salt)
