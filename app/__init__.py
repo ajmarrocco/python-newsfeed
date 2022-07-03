@@ -28,6 +28,6 @@ def create_app(test_config=None):
   app.register_blueprint(dashboard)
 
   # initializes database
-  init_db()
+  init_db(app)
 
   return app

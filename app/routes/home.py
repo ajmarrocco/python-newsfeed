@@ -1,12 +1,19 @@
 # Imports functions Blueprint and render_template from flask
 from flask import Blueprint, render_template
+from app.models import Post
+from app.db import get_db
 
 # consolidates routes into a single bp object that parent app can register later
 bp = Blueprint('home', __name__, url_prefix='/')
 
 @bp.route('/')
 def index():
-    return render_template('homepage.html')
+    # get all posts
+    # get_db() functions returns a session connection that's tied to route's context
+    db = get_db()
+    posts = db.query(Post).order_by(Post.created_at.desc()).all()
+
+    return render_template('homepage.html', posts=posts)
 
 @bp.route('/login')
 def login():
