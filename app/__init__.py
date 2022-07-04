@@ -2,7 +2,7 @@
 from flask import Flask
 # imports home module from app.routes
 # Can do this because the __init__.py file imported and renamed blueprint object
-from app.routes import home, dashboard
+from app.routes import home, dashboard, api
 # imports init_db from app/db
 from app.db import init_db
 # imports filters from app/utils
@@ -25,9 +25,10 @@ def create_app(test_config=None):
   def hello():
     return 'hello world'
 
-  # register routes
+  # register routes, this makes routes automatically a part of Flask app
   app.register_blueprint(home)
   app.register_blueprint(dashboard)
+  app.register_blueprint(api)
   app.jinja_env.filters['format_url'] = filters.format_url
   app.jinja_env.filters['format_date'] = filters.format_date
   app.jinja_env.filters['format_plural'] = filters.format_plural
