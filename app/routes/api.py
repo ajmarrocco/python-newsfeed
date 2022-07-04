@@ -1,5 +1,5 @@
 import sys
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, session
 from app.models import User
 from app.db import get_db
 
@@ -30,5 +30,12 @@ def signup():
         db.rollback()
         return jsonify(message = 'Signup failed'), 500
     
+    # clears Session
+    session.clear()
+    # Recreates id for future database queries
+    session['user_id'] = newUser.id
+    # Boolean property that templates use to conditionally render elements
+    session['loggedIn'] = True
+
     # returns new User wtih ID number
     return jsonify(id = newUser.id)
