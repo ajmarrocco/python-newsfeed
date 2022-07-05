@@ -2,6 +2,7 @@
 from flask import Blueprint, render_template, session
 from app.models import Post
 from app.db import get_db
+from app.utils.auth import login_required
 
 # consolidates routes into a single bp object that parent app can register later
 # url_prefix prefixes every route with /dashboard
