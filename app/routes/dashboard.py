@@ -1,5 +1,7 @@
 # Imports functions Blueprint and render_template from flask
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, session
+from app.models import Post
+from app.db import get_db
 
 # consolidates routes into a single bp object that parent app can register later
 # url_prefix prefixes every route with /dashboard
@@ -7,7 +9,18 @@ bp = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 
 @bp.route('/')
 def dash():
-    return render_template('dashboard.html')
+    db = get_db()
+    posts = (
+        db.query(Post)
+        .filter(Post.user_id == session.get('user_id'))
+        .order_by(Post.created_at.desc())
+        .all()
+    )
+    return render_template(
+    'dashboard.html',
+    posts=posts,
+    loggedIn=session.get('loggedIn')
+    )
 
 @bp.route('/edit/<id>')
 def edit(id):
